@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JQuery selectors</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#txtsel").click(function(){
+       $("li:contains(REPLACE_ME)").css("background-color", "yellow");
+    });
+    $("#splsel").click(function(){
+        $("div>.special").css("background-color", "blue");
+    });
+    $("#htags").click(function(){
+        $(":header").css("background-color", "red");
+    });
+    $("#liVis").click(function(){
+        $("div li:visible").css("background-color", "green");
+    });
+});
+</script>
+<style type="text/css">
+body{
+	position: relative;
+	background-color: #cccccc;
+}
+.content {
+	position: absolute;
+	top: 10%;
+	left: 15%;
+
+}
+</style>
+<body>
+
+
+	<div class="content">
+		<h1>Spring - Bean Life Cycle </h1>
+		<h2>Life-cycle Steps:</h2>
+		<ul>
+			<li>Initialization callbacks</li>
+			<li>Destruction callbacks</li>
+			<li>Destruction callbacks REPLACE_ME"</li>
+			<li style="visibility:hidden">This is hidden field"</li>
+		</ul>
+		<h3>Initialization callbacks</h3>
+		<table>
+			<tr>
+				<td class="tdCls">This td having class</td>
+				<td >This td having no class id attribute</td>
+			</tr>
+			<tr>
+				<td id="tdId">This td having id</td>
+				<td class="tdCls">This td also having class</td>
+			</tr>
+			<tr>
+				<td colspan="2">This td having attr-colspan</td>
+				<td >This also td having no class id attribute</td>
+			</tr>
+		</table>
+		<h3>Multiple divs</h3>
+		<div>This is parenrt div
+			<div>This is first child div having no class "special"
+				<div class="special">This is grand chiild div having class "special"
+				</div>
+			</div>
+			<div class="special">This is second child div having class "special"
+				<div>This is grand chiild div having no class "special"
+				</div>
+			</div>
+		</div>
+		<button id="txtsel">Element with text REPLACE_ME</button>
+		<button id="splsel">Div tags having child with class "special" </button>
+		<button id="htags">All heading elements </button>
+		<button id="liVis">visible li inside a div</button>
+	</div>
+
+
+</body>
+</html>
