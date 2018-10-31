@@ -1,0 +1,89 @@
+body{
+	font-family: Comic sans MS;
+}
+p {
+    font-weight: bold;
+}
+div .block{ 
+	display: inline-block;
+	height: 100%;
+	padding: 10px;
+	font-size: 20px;
+	/*border: 3px solid white;*/
+	width: 30%;
+	margin: 10px;
+}
+#main{
+	margin-top: 25px;
+	}
+	.btn{
+		background-color: #4badac; /* Green */
+		border: none;
+		color: white;
+		padding: 6px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+	}
+	.tskDiv{
+		margin-top: 18px;
+	}
+	#taskBox
+	{
+		width: 100%;
+	}
+	#task
+	{
+		background: #bcdedbba;
+	}
+	#done{
+		background: #9cd092ba;
+	}
+	#backlog{
+		background: #fb885bba;
+	}
+
+	.draggable
+	{
+		filter: alpha(opacity=60);
+		opacity: 0.6;
+	}
+	.dropped
+	{
+		position: static !important;
+	}
+	.edit{
+
+		background: url("https://png.icons8.com/metro/1600/edit.png");
+		background-repeat: no-repeat;
+		background-size: 29px;
+		height: 32px;
+		width: 28px;
+	}
+	.del{
+
+		background: url("https://png.icons8.com/metro/1600/delete.png");
+		background-repeat: no-repeat;
+		background-size: 29px;
+		height: 32px;
+		width: 28px;
+	}
+	.done{
+
+		background: url("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/256x256/check.png");
+		background-repeat: no-repeat;
+		background-size: 29px;
+		height: 32px;
+		width: 28px;
+	}
+	.backlog{
+
+		background-image: url('hcm_form_backlog_1152900.png');
+		background-repeat: no-repeat;
+		background-size: 29px;
+		height: 32px;
+		width: 28px;
+	}

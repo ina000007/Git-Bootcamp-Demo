@@ -1,0 +1,62 @@
+td {
+	padding: 10px;
+	background-color: #E9A207;
+	border-style: solid;
+	border-color: #19AABB;
+	width: 45px;
+    height: 35px;
+    box-sizing: border-box;
+    font-family:Lucida Console;
+    font-weight: bold;
+    opacity: 0.6;
+  	transition: 0.3s;
+  	border-radius: 40%;
+  	text-align: center;
+}
+
+table {
+	border: none;
+	background-color: #19AABB;
+	position: absolute;
+	top: 20%;
+	left: 40%;
+	box-shadow: 6px 1px 90px 21px rgba(200,164,91,1);
+	/*transform: translate(-50%,-50%);*/	
+}
+body{
+	position: relative;
+    background-color: #cccccc;
+    font-family: Comic sans MS;
+}
+.display{
+	background-color: #DACA9D;
+	opacity: 1;
+	height: 55px;
+	text-align: left;
+	border-radius: 30%;
+	max-width:300px;
+}
+.btn:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.optr:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.cal:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.decimal:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.clear:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.sngClr:hover{
+	opacity: 1;
+	cursor: pointer;	
+};
