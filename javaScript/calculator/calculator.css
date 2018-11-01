@@ -4,14 +4,14 @@ td {
 	border-style: solid;
 	border-color: #19AABB;
 	width: 45px;
-    height: 35px;
-    box-sizing: border-box;
-    font-family:Lucida Console;
-    font-weight: bold;
-    opacity: 0.6;
-  	transition: 0.3s;
-  	border-radius: 40%;
-  	text-align: center;
+	height: 35px;
+	box-sizing: border-box;
+	font-family:Lucida Console;
+	font-weight: bold;
+	opacity: 0.6;
+	transition: 0.3s;
+	border-radius: 40%;
+	text-align: center;
 }
 
 table {
@@ -21,12 +21,14 @@ table {
 	top: 20%;
 	left: 40%;
 	box-shadow: 6px 1px 90px 21px rgba(200,164,91,1);
+	width: 311px;
+	height: 382px;
 	/*transform: translate(-50%,-50%);*/	
 }
 body{
 	position: relative;
-    background-color: #cccccc;
-    font-family: Comic sans MS;
+	background-color: #cccccc;
+	font-family: Comic sans MS;
 }
 .display{
 	background-color: #DACA9D;
