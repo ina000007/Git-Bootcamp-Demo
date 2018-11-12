@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	// $(document).ready(function(){
+	// 	$("button").click(function(){
+	// 		var jqxhr = $.getJSON( "http://localhost:59414/api/todoes", function() {
+	// 			alert( "success" );
+	// 		})
+	// 		.done(function() {
+	// 			alert( "second success  => " );
+	// 		})
+	// 		.fail(function() {
+	// 			alert( "error" );
+	// 		})
+	// 		.always(function() {
+	// 			alert( "finished" );
+	// 		});
+	// 		jqxhr.always(function() {
+	// 			alert( "second finished  here= " );
+	// 		});
+	// 	});
+	// });
+var myData =[];
+var baseUrl = "http://localhost:59414";
+var endPoint = "/api/todoes";
+$(document).ready(function(){
+	$("button").click(function() {
+		putData(73,"my name nishant",3,"2018-11-12",aFunc)
+	});
+});
+function aFunc(){
+	console.log("aFunc data = "+myData);
+
+}
+function getData(aFunc){
+	var url = baseUrl+endPoint;
+	$.getJSON( url, {
+		crossDomain: true,
+		format: "json"
+	})
+	.done(function( data ) {
+		myData = JSON.stringify(data);
+		aFunc(); 
+	});
+}
+
+function postData(){
+	jQuery.ajax({
+		url: baseUrl+endPoint,
+		type: "POST",
+		data: {descpt: "created with ajax", crt_dt:"2018-11-06",st_cd:"2" },
+		dataType: "json",
+		beforeSend: function(x) {
+			if (x && x.overrideMimeType) {
+				x.overrideMimeType("application/j-son;charset=UTF-8");
+			}
+		},
+		success: function(result) {
+			console.log("post done: "+ result.todo_id);
+
+		}
+	}); 
+}
+// {todo_id:id, descpt: data, crt_dt:date,st_cd:status },
+function putData(){
+	var id = 13;
+	var data = "upppppppppp";
+	var date = "2018-11-04";
+	var status = 2;
+	jQuery.support.cors = true;
+	jQuery.ajax({
+		url: baseUrl+endPoint+"/"+id,
+		type: "PUT",
+		crossDomain: true,
+		data: {todo_id:"13", descpt: "here the change", crt_dt:"2018-11-06",st_cd:"2" },
+		dataType: "json",
+		contentType: "application/x-www-form-urlencoded",
+		beforeSend: function(x) {
+			if (x && x.overrideMimeType) {
+				x.overrideMimeType("application/j-son;charset=UTF-8");
+			}
+		},
+		success: function(result) {
+			console.log("put done: "+ result.todo_id);
+			aFunc(); 
+		}
+	}); 
+}
+function putData(id,data,status,date,aFunc){
+	console.log(id,data,status,data);
+	jQuery.ajax({
+		url: baseUrl+endPoint+"/"+id,
+		type: "PUT",
+		data: {todo_id:id, descpt: data, crt_dt:date,st_cd:status },
+		dataType: "json",
+		beforeSend: function(x) {
+			if (x && x.overrideMimeType) {
+				x.overrideMimeType("application/j-son;charset=UTF-8");
+			}
+		},
+		success: function(result) {
+			console.log("put done: "+ result.todo_id);
+			aFunc(); 
+		}
+	}); 
+}
+// function putData1(){
+// 	var id = 5;
+// 	var data = "upppppppppp";
+// 	var date = "2018-11-04";
+// 	var status = 2;
+//                 $.ajax({
+//                     url:  baseUrl+endPoint+"/"+id,    //Your api url
+//                     type: 'PUT',   //type is any HTTP method
+//                     data: {
+//                         data: {"descpt":" created with postman","st_cd":1,"crt_dt": "2018-11-05"}
+//                     },      //Data as js object
+//                     success: function (result) {
+//                     	console.log("put done: "+ result.todo_id);
+// 						aFunc(); 
+//                     }
+//                 });
+// }
+
+
+
+
+</script>
+</head>
+<body>
+
+	<button>Send an HTTP GET request to a page and get the result back</button>
+
+</body>
+</html>
+
+// <script>
+// (function() {
+// 	var flickerAPI = "http://localhost:59414/api/todoes";
+// 	$.getJSON( flickerAPI, {
+// 		Access-Control-Allow-Credentials:true,
+// 		format: "json"
+// 	})
+// 	.done(function( data ) {
+// 		$.each( data.items, function( i, item ) {
+// 			console.log("data ->"item);
+// 		});
+// 	});
+// })();
+// </script>
