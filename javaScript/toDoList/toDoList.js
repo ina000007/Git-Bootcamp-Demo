@@ -1,5 +1,10 @@
-
+var tskData=[];
+var myData =[];
+var baseUrl = "http://localhost:59414";
+var endPoint = "/api/todoes";
+var editDataflg=false;
 function rendrData(){
+
 	var id, descpt, date,stats;
 	for(var i in myData){
 		console.log(myData[i]);
@@ -15,6 +20,27 @@ function rendrData(){
 			case 3: createNwDiv(descpt,"backlog",id);				
 		}
 	}
+	for(var i in tskData){
+		console.log(tskData[i].todo_type_cd+" and "+tskData[i].todo_type_desc);
+		crtTskOption(tskData[i].todo_type_cd,tskData[i].todo_type_desc);
+	}
+
+}
+
+function crtTskOption(tskId,tskVal){
+	var newTskCat = document.createElement("a");
+	var tskCatOpt = document.createElement("option");
+	newTskCat.id = "newTskCat_"+tskId;
+	tskCatOpt.id = "tskCatOpt_"+tskId;
+	newTskCat.className = "tskCat";
+	tskCatOpt.className = "tskCat";
+	newTskCat.innerHTML = tskVal;
+	tskCatOpt.innerHTML = tskVal; 
+	newTskCat.value = tskId;
+	tskCatOpt.value = tskId;
+	newTskCat.onclick = fltrData;
+	document.getElementById("tskCatFtr").appendChild(newTskCat);
+	document.getElementById("catDrpDn").appendChild(tskCatOpt);
 }
 // type: task, backlog, done
 function createNwDiv(val,type,id){
@@ -67,11 +93,15 @@ function createNwDiv(val,type,id){
 			var d = new Date();
 			var dt = d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate();
 			console.log("booolean result "+(editDataflg));
-			if(editDataflg==false)	
-			postData(val,1,dt);	
-			else{
-				editDataflg=false;
+			if(editDataflg==false){
+				var catCd= $('#catDrpDn').val();	//$('#catDrpDn :selected').text();
+				postData(val,1,dt,catCd);
 			}	
+			else{
+				console.log("upd called for: "+id+" "+val);
+				updateData(id,val,aFunc);
+				editDataflg=false;
+			}	inputEle.value="";
 
 		}
 	}
@@ -81,6 +111,7 @@ function createNwDiv(val,type,id){
 		tskDiv.parentNode.removeChild(tskDiv);
 		deleteTodo(tskDivId,aFunc);
 	}
+	var id;
 	function editTsk(){
 		var tskDivId = $(this).parent().attr("id");
 		var tskDiv = document.getElementById(tskDivId);
@@ -92,8 +123,9 @@ function createNwDiv(val,type,id){
 
 		var taskBox = document.getElementById("taskBox");
 		taskBox.value = text[0];
-		// editDataflg = true;
-		updateData(tskDivId,text[0],aFunc);
+		editDataflg = true;
+		id = tskDivId.split("_")[1];
+		
 	}
 	function backlog(){
 		var tskDivId = $(this).parent().attr("id");
@@ -142,15 +174,11 @@ function createNwDiv(val,type,id){
 
 // ##################################################  Backend Connectivity  #######################s
 
-var myData =[];
-var baseUrl = "http://localhost:59414";
-var endPoint = "/api/todoes";
-var editDataflg=false;
 $(document).ready(function(){
 	getData(aFunc);
 });
 function aFunc(){
-	console.log("aFunc data = "+myData);
+	console.log("done");
 }
 function getData(aFunc){
 	var url = baseUrl+endPoint;
@@ -160,8 +188,8 @@ function getData(aFunc){
 	})
 	.done(function( data ) {
 		myData = data;
+		getTskCat(aFunc);
 		aFunc(); 
-		rendrData();
 	});
 }
 function editStatus(id,status_cd,aFunc){
@@ -174,8 +202,8 @@ function editStatus(id,status_cd,aFunc){
 		myData = [];
 		myData = data;
 		console.log("getting the data "+myData.descpt);
-		console.log(id+" "+myData.descpt+" "+status_cd+" "+myData.crt_dt);
-		putData(id,myData.descpt,status_cd,myData.crt_dt,aFunc);
+		console.log("Sending parameter on edit status: "+id+" "+myData.descpt+" "+status_cd+" "+myData.crt_dt+" "+myData.todo_type_cd);
+		putData(id,myData.descpt,status_cd,myData.crt_dt,myData.todo_type_cd,aFunc);
 		aFunc(); 
 	});
 }
@@ -190,17 +218,18 @@ function editData(id,updData,aFunc){
 		myData = data;
 		console.log("getting the data "+myData.descpt);
 		console.log(id+" "+updData+" "+myData.st_cd+" "+myData.crt_dt);
-		putData(id,updData,myData.st_cd,myData.crt_dt,aFunc);
+		putData(id,updData,myData.st_cd,myData.crt_dt,myData.todo_type_cd,aFunc);
 		aFunc(); 
+		location.reload();
 	});
 }
-function postData(data,status,date){
+function postData(data,status,date,catCd){
 	if(editDataflg==true)
 		return;
 	jQuery.ajax({
 		url: baseUrl+endPoint,
 		type: "POST",
-		data: {descpt: data, crt_dt:date,st_cd:status },
+		data: {descpt: data, crt_dt:date,st_cd:status,"todo_type_cd":catCd },
 		dataType: "json",
 		beforeSend: function(x) {
 			if (x && x.overrideMimeType) {
@@ -215,12 +244,12 @@ function postData(data,status,date){
 	}); 
 }
 
-function putData(id,data,status,date,aFunc){
-	console.log(id,data,status,data);
+function putData(id,data,status,date,type,aFunc){
+	console.log("Check here the type: "+id +" "+data+" "+status+" "+data+" "+type);
 	jQuery.ajax({
 		url: baseUrl+endPoint+"/"+id,
 		type: "PUT",
-		data: {todo_id:id, descpt: data, crt_dt:date,st_cd:status },
+		data: {todo_id:id, descpt: data, crt_dt:date,st_cd:status, todo_type_cd:type },
 		dataType: "json",
 		beforeSend: function(x) {
 			if (x && x.overrideMimeType) {
@@ -235,12 +264,12 @@ function putData(id,data,status,date,aFunc){
 }
 function delData(id,aFunc){
 	$.ajax({
-    url: baseUrl+endPoint+"/"+id,
-    type: 'DELETE',
-    success: function(result) {
-        aFunc();
-    }
-});
+		url: baseUrl+endPoint+"/"+id,
+		type: 'DELETE',
+		success: function(result) {
+			aFunc();
+		}
+	});
 }
 function updateStatus(id,status_cd,aFunc){
 	id = id.split("_")[1];
@@ -249,7 +278,7 @@ function updateStatus(id,status_cd,aFunc){
 	// putData(id,myData.descpt,status_cd,myData.crt_dt,aFunc);
 }
 function updateData(id,data,aFunc){
-	id = id.split("_")[1];
+	// id = id.split("_")[1];
 	editDataflg=true;
 	console.log("updateData  editDataflg:"+editDataflg);
 	editData(id,data,aFunc);
@@ -286,3 +315,98 @@ function deleteTodo(id,aFunc){
 
 
 // });
+
+//######################################## MODAL ##################################################
+// Get the modal'
+
+$(document).ready(function(){
+	var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// Get the button that create new catagory
+var newCataBtm = document.getElementById("newCataCrtBtn");
+
+//when user clicks create, the newly created catagory added to db
+newCataBtm.onclick = function(){
+	var inpCat =  document.getElementById("newCata").value;
+	addTskCat(inpCat,aFunc);
+	modal.style.display = "none";
+	document.getElementById("newCata").value="";
+}
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+	modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+	modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}
+}
+});
+
+//####################################### Task Type changes ####################################
+
+function addTskCat(inpCat,aFunc){
+	console.log("caleed");
+	jQuery.ajax({
+		url: baseUrl+"/api/todo_type",
+		type: "POST",
+		data: {"todo_type_desc": inpCat },
+		dataType: "json",
+		beforeSend: function(x) {
+			if (x && x.overrideMimeType) {
+				x.overrideMimeType("application/j-son;charset=UTF-8");
+			}
+		},
+		success: function(result) {
+			console.log("post done for adding new task type: "+ result.todo_type_desc);
+			aFunc(); 
+			location.reload();
+		}
+	}); 
+}
+
+function getTskCat(aFunc){
+	var url = baseUrl+"/api/todo_type";
+	$.getJSON( url, {
+		crossDomain: true,
+		format: "json"
+	})
+	.done(function( data ) {
+		tskData = data;
+		rendrData();
+		aFunc(); 
+	});
+}
+function fltrData(){
+	$('.tskDiv').remove();
+	$('.tskCat').remove();
+	var id = $(this).attr("id").split("_")[1];
+	var url = baseUrl+"/api/todoes/catatory/"+id;
+	$.getJSON( url, {
+		crossDomain: true,
+		format: "json"
+	})
+	.done(function( data ) {
+		myData = data;
+		for(var i in myData){
+		console.log(myData[i]);
+	}
+		console.log("data : "+data);
+		rendrData();
+		// aFunc(); 
+	});
+}

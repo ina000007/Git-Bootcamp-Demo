@@ -87,3 +87,155 @@ div .block{
 		height: 32px;
 		width: 28px;
 	}
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.button {
+    background-color: #509487; /* Green */
+    border: none;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}	
+.cir {border-radius: 43%;}
+
+
+/*modal<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="toDoList.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script  src="https://code.jquery.com/ui/1.9.2/jquery-ui.min.js"
+	integrity="sha256-eEa1kEtgK9ZL6h60VXwDsJ2rxYCwfxi40VZ9E0XwoEA="
+	crossorigin="anonymous">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="toDoList.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+
+</head>
+<body  background="todo.jpg">
+
+	<div class="container" id="main">
+		<div class="dropdown">
+			<button class="dropbtn">Category Filter</button>
+			<div class="dropdown-content" id="tskCatFtr">
+			</div>
+		</div>
+		<button class="button cir" id="myBtn">+</button>
+		<div id="myModal" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+					<h2>Add New Category</h2>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="newCata"/>
+					<button class="button" id="newCataCrtBtn">Create</button>
+				</div>
+				<div class="modal-footer">
+					<h3></h3>
+				</div>
+			</div>
+
+		</div>
+		<br>
+		<div class="block col-xs-4" id="backlog" >
+			<p class="sub-heading">Backlogs</p>
+		</div>
+
+		<div class="block col-xs-4" id="task"> 
+			<p>Task Category:</p>
+			<select id ="catDrpDn">
+			</select> 	
+			<p class="sub-heading">Tasks</p>
+			<input id="taskBox" type="text" placeholder="Create Task..." value="" onkeydown="keyCode(event)"/>			
+		</div>
+
+		<div class="block col-xs-4" id="done" >
+			<p class="sub-heading">Done</p>
+		</div>
+
+	</div> 
+
+</body>
+</html>
+*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -7,9 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="toDoList.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script  src="https://code.jquery.com/ui/1.9.2/jquery-ui.min.js"
-  		integrity="sha256-eEa1kEtgK9ZL6h60VXwDsJ2rxYCwfxi40VZ9E0XwoEA="
-  		crossorigin="anonymous">
-  	</script>
+	integrity="sha256-eEa1kEtgK9ZL6h60VXwDsJ2rxYCwfxi40VZ9E0XwoEA="
+	crossorigin="anonymous">
+	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="toDoList.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
@@ -19,14 +19,41 @@
 <body  background="todo.jpg">
 
 	<div class="container" id="main">
+		<div class="dropdown">
+			<button class="dropbtn">Category Filter</button>
+			<div class="dropdown-content" id="tskCatFtr">
+			</div>
+		</div>
+		<button class="button cir" id="myBtn">+</button>
+		<div id="myModal" class="modal">
 
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+					<h2>Add New Category</h2>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="newCata"/>
+					<button class="button" id="newCataCrtBtn">Create</button>
+				</div>
+				<div class="modal-footer">
+					<h3></h3>
+				</div>
+			</div>
+
+		</div>
+		<br>
 		<div class="block col-xs-4" id="backlog" >
 			<p class="sub-heading">Backlogs</p>
 		</div>
 
-		<div class="block col-xs-4" id="task">  	
+		<div class="block col-xs-4" id="task"> 
+			<p>Task Category:</p>
+			<select id ="catDrpDn">
+			</select> 	
 			<p class="sub-heading">Tasks</p>
-			<input id="taskBox" type="text" placeholder="Create Task..." value="" onkeydown="keyCode(event)"/>
+			<input id="taskBox" type="text" placeholder="Create Task..." value="" onkeydown="keyCode(event)"/>			
 		</div>
 
 		<div class="block col-xs-4" id="done" >
